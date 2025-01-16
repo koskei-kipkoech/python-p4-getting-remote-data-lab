@@ -7,7 +7,12 @@ class GetRequester:
         self.url = url
 
     def get_response_body(self):
-        pass
+        response = requests.get(self.url)
+        if response.status_code == 200:
+            return response.content
+        else:
+            raise Exception(f'Requests failed with statusode {response.status_code}')
 
     def load_json(self):
-        pass
+        response_body = self.get_response_body()
+        return json.loads(response_body)
